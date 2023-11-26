@@ -17,6 +17,18 @@ use Perinci::Sub::Util qw(gen_modified_sub);
 
 our %SPEC;
 
+our @EXPORT_OK = qw(
+                       sort_files
+                       foremost
+                       hindmost
+                       largest
+                       smallest
+                       newest
+                       oldest
+                       longest_name
+                       shortest_name
+               );
+
 my @file_types = qw(file dir);
 
 my @file_fields = qw(name size mtime ctime);
