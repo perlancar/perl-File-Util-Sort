@@ -195,7 +195,7 @@ sub sort_files {
 
     my $code_get_recs;
     $code_get_recs = sub {
-        my $dir = shift;
+        my ($dir, $prefix) = @_;
 
         opendir my $dh, $dir or return [500, "Can't opendir '$dir': $!"];
 
@@ -222,7 +222,7 @@ sub sort_files {
                     next FILE;
                 }
             }
-            my $rec = {name=>$e, dir=>$dir};
+            my $rec = {name=>$e, dir=>(defined $prefix ? "$prefix/$dir" : $dir)};
             my @st = lstat $e or do {
                 warn "Can't stat '$e' in '$dir': $!, skipped";
                 next;
@@ -254,7 +254,7 @@ sub sort_files {
           SKIP_ADD_FILE:
             if ($recursive && $rec->{mode} & S_IFDIR) {
                 log_trace "Recursing into $dir/$e ...";
-                my $subres = $code_get_recs->($e);
+                my $subres = $code_get_recs->($e, $dir);
                 if ($subres->[0] == 200) {
                     push @recs, @{ $subres->[2] };
                 } else {
