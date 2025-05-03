@@ -1,3 +1,10 @@
+0.010   2025-05-03  Released-By: PERLANCAR; Urgency: high
+
+        - [bugfix] When recursing, don't lose the original directory prefix.
+
+        - Add exports.
+
+
 0.009   2023-11-26  Released-By: PERLANCAR; Urgency: medium
 
         - First release, split from App-FileSortUtils.
